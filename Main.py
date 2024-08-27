@@ -163,7 +163,7 @@ def send_sms():
     time.sleep(0.5)
 
 try:
-    initialize_serial()  
+    # initialize_serial()  
     time.sleep(5)
     initialize_serial_esp32()
     # print(ser)
@@ -178,17 +178,17 @@ try:
                 print(GPSLocation)
                 time.sleep(1)            
             if "S" in line:
-                phone_number = line.split("S")[1].strip()
+                phone_number = line.split("SMS ")[1].strip()
                 print(phone_number)
                 time.sleep(1)
                 print('sending sms')
-                send_sms()
+                # send_sms()
             if "C" in line:
-                phone_number = line.split("C")[1].strip()
+                phone_number = line.split("Call ")[1].strip()
                 print(phone_number)
                 time.sleep(1)
                 print('making phone call')
-                phone()
+                # phone()
            
         time.sleep(1)
 
@@ -196,7 +196,7 @@ except KeyboardInterrupt:
     print("Program END")
 
 finally:
-    if ser:
-        ser.close()
+    # if ser:
+    #     ser.close()
     if ser1:
         ser1.close()
