@@ -173,17 +173,17 @@ try:
             line = ser1.readline().decode('utf-8', errors='ignore').rstrip()
             print(f"Received: {line}")
             
-            if "GPS" in line:
+            if "GPS " in line:
                 GPSLocation = line.split("GPS ")[1].strip()
                 print(GPSLocation)
                 time.sleep(1)            
-            if "S" in line:
+            if "SMS " in line:
                 phone_number = line.split("SMS ")[1].strip()
                 print(phone_number)
                 time.sleep(1)
                 print('sending sms')
                 # send_sms()
-            if "C" in line:
+            if "Call " in line:
                 phone_number = line.split("Call ")[1].strip()
                 print(phone_number)
                 time.sleep(1)
