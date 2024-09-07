@@ -117,16 +117,16 @@ def phone():
         
         for i in range(20):
             time.sleep(0.01)
-            rec_buff = ser.read_all().decode('utf-8').strip()
+            rec_buff = ser.readall().decode('utf-8').strip()
             print(f"rec_buff = {rec_buff}")
             if 'VOICE CALL: BEGIN' in rec_buff:
                 call_answered = True
                 print("Call answered")
-                txttovoice("This is. an emergency. call. Baby. stuck. in. the car. GPS. Cordinate. is:","/home/pi/Baby-1/voicecodetext.wav",0.7)
-                txttovoice("Latitude.","/home/pi/Baby-1/voicecodetext.wav",0.7)
-                txttovoicenumber(Latitude, "/home/pi/Baby-1", 0.8)
+                txttovoice("This is. an emergency. call. Baby. stuck. in. the car. GPS. Cordinate. is:","/home/pi/CarsafeClimateAlert/voicecodetext.wav",0.7)
+                txttovoice("Latitude.","/home/pi/CarsafeClimateAlert/voicecodetext.wav",0.7)
+                txttovoicenumber(Latitude, "/home/pi/CarsafeClimateAlert", 0.8)
                 txttovoice("Longitude.","/home/pi/Baby-1/voicecodetext.wav",0.7)
-                txttovoicenumber(Longitude, "/home/pi/Baby-1", 0.7)
+                txttovoicenumber(Longitude, "/home/pi/CarsafeClimateAlert", 0.7)
                 time.sleep(5)
                 break
             elif 'NO CARRIER' in rec_buff:
@@ -163,7 +163,7 @@ def send_sms():
     time.sleep(0.5)
 
 try:
-    # initialize_serial()  
+    initialize_serial()  
     time.sleep(5)
     initialize_serial_esp32()
     # print(ser)
@@ -182,13 +182,13 @@ try:
                 print(phone_number)
                 time.sleep(1)
                 print('sending sms')
-                # send_sms()
-            if "Call " in line:
-                phone_number = line.split("Call ")[1].strip()
+                send_sms()
+            if "CALL " in line:
+                phone_number = line.split("CALL ")[1].strip()
                 print(phone_number)
                 time.sleep(1)
                 print('making phone call')
-                # phone()
+                phone()
            
         time.sleep(1)
 
@@ -196,7 +196,7 @@ except KeyboardInterrupt:
     print("Program END")
 
 finally:
-    # if ser:
-    #     ser.close()
+    if ser:
+        ser.close()
     if ser1:
         ser1.close()
